@@ -1,0 +1,16 @@
+- flash.each do |type, msg|
+  %div{class: "alert alert-#{type}"}= msg.html_safe
+= form_for @form, url: root_path do |f|
+  %p= f.text_field :xpath, id: :xpath, class: 'form-control', placeholder: 'XPath'
+  %p= f.text_area :xml, id: :xml, class: 'form-control', placeholder: 'XML', style: 'height: 20em;'
+  %p
+    = f.submit 'Test', class: 'btn btn-primary'
+    %a.btn.btn-default.pull-right{href: 'https://github.com/youcune/xpath-tester'} XPath Tester on Github
+- if @elements.kind_of?(Array)
+  %h2 Results
+  - if @elements.empty?
+    %p No matches
+  - else
+    %ul
+      - @elements.each do |e|
+        %li= e

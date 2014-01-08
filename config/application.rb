@@ -26,3 +26,5 @@ module XPathTester
     # config.i18n.default_locale = :de
   end
 end
+
+I18n.enforce_available_locales = false
