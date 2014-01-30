@@ -8,9 +8,20 @@ class MainController < ApplicationController
       @form = MainForm.new(main_params)
       if @form.valid?
         begin
+          pretty = REXML::Formatters::Pretty.new
+          pretty.compact = true
+
           document = REXML::Document.new(@form.xml)
           current_node = @form.current_node.nil? ? document : document.get_elements(@form.current_node)
-          @elements = REXML::XPath.match(current_node, @form.xpath)
+          @elements = REXML::XPath.match(current_node, @form.xpath).map do |e|
+            if e.kind_of?(REXML::Element)
+              str = StringIO.new
+              pretty.write(e, str)
+              str.string
+            else
+              e.to_s
+            end
+          end
         rescue REXML::ParseException => e
           flash.now[:danger] = "<h4>XML Parse Error</h4>#{safen(e.continued_exception.to_s)}"
         end

@@ -12,6 +12,5 @@
   - if @elements.empty?
     %p No matches
   - else
-    %ul
-      - @elements.each do |e|
-        %li= e
+    - @elements.each do |e|
+      %pre= e
