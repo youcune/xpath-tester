@@ -27,11 +27,18 @@ GEM
       tzinfo (~> 0.3.37)
     arel (4.0.1)
     atomic (1.1.14)
+    better_errors (1.1.0)
+      coderay (>= 1.0.0)
+      erubis (>= 2.6.6)
+    binding_of_caller (0.7.2)
+      debug_inspector (>= 0.0.1)
     builder (3.1.4)
     byebug (2.5.0)
       columnize (~> 0.3.6)
       debugger-linecache (~> 1.2.0)
+    coderay (1.1.0)
     columnize (0.3.6)
+    debug_inspector (0.0.2)
     debugger-linecache (1.2.0)
     diff-lcs (1.2.5)
     erubis (2.7.0)
@@ -109,6 +116,8 @@ PLATFORMS
 
 DEPENDENCIES
   activemodel
+  better_errors
+  binding_of_caller
   byebug
   haml-rails
   rails (= 4.0.0)
