@@ -8,9 +8,9 @@ describe MainForm do
     expect(form).to be_valid
   end
 
-  it 'はXPathがない場合にバリデーションエラーとする' do
+  it 'はXPathがない場合でも検証を通る' do
     form = MainForm.new(xpath: '', xml: '<element>value</element>')
-    expect(form).to be_invalid
+    expect(form).to be_valid
   end
 
   it 'はXMLがない場合にバリデーションエラーとする' do

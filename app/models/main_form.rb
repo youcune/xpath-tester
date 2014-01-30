@@ -5,7 +5,6 @@ class MainForm
 
   attr_accessor :xpath, :current_node, :xml
 
-  validates :xpath, presence: true
   validates :xml, presence: true, length: { maximum: 1024*100 }
 
   def ==(form)

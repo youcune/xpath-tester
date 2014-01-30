@@ -15,33 +15,30 @@ describe MainController do
 
   describe 'POST index' do
     it 'はPOSTでリクエストすると渡されたパラメータで@formを構築する' do
-      post :index, { main_form: { xpath: '/element', xml: '<element>value</element>' } }
-      expected = MainForm.new(xpath: '/element', xml: '<element>value</element>')
+      post :index, { main_form: { xpath: '/element', current_node: '', xml: '<element>value</element>' } }
+      expected = MainForm.new(xpath: '/element', current_node: '', xml: '<element>value</element>')
       actual = assigns(:form)
       expect(actual).to eq expected
     end
 
+    it 'はCurrent Nodeに複数マッチする場合、そのことを教えてあげる' do
+      post :index, { main_form: { xpath: '', current_node: '//a', xml: '<root><a>A1</a><a>A2</a></root>' } }
+      expect(flash[:info]).to be_present
+    end
+
     it 'は空のパラメータで呼ばれた場合、エラーをflashにセットする' do
-      post :index, { main_form: { xpath: '', xml: '' } }
-      expected = MainForm.new(xpath: '', xml: '')
-      actual = assigns(:form)
-      expect(actual).to eq expected
+      post :index, { main_form: { xpath: '', current_node: '', xml: '' } }
       expect(flash[:danger]).to be_present
     end
 
     it 'は不正なXMLで呼ばれた場合、エラーをflashにセットする' do
-      post :index, { main_form: { xpath: '/element', xml: '<element1>value</element2>' } }
-      expected = MainForm.new(xpath: '/element', xml: '<element1>value</element2>')
-      actual = assigns(:form)
-      expect(actual).to eq expected
+      post :index, { main_form: { xpath: '/element', current_node: '', xml: '<element1>value</element2>' } }
       expect(flash[:danger]).to include 'XML Parse Error'
     end
 
     it 'はXPath関数を受け付ける' do
-      post :index, { main_form: { xpath: 'count(element)', xml: '<element>value</element>' } }
-      expected = ['1']
-      actual = assigns(:elements)
-      expect(actual).to eq expected
+      post :index, { main_form: { xpath: 'count(element)', current_node: '', xml: '<element>value</element>' } }
+      expect(assigns(:elements)).to eq ['1']
     end
   end
 end

@@ -12,7 +12,16 @@ class MainController < ApplicationController
           pretty.compact = true
 
           document = REXML::Document.new(@form.xml)
-          current_node = @form.current_node.nil? ? document : document.get_elements(@form.current_node)
+
+          if @form.current_node.nil?
+            current_node = document
+          else
+            current_node = document.get_elements(@form.current_node)
+            if current_node.size > 1
+              flash.now[:info] = 'More than one elements have matched Current Node. I hope it\'s ok!'
+            end
+          end
+
           @elements = REXML::XPath.match(current_node, @form.xpath).map do |e|
             if e.kind_of?(REXML::Element)
               str = StringIO.new

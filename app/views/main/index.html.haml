@@ -8,7 +8,7 @@
     = f.submit 'Test', class: 'btn btn-primary'
     %a.btn.btn-default.pull-right{href: 'https://github.com/youcune/xpath-tester'} XPath Tester on Github
 - if @elements.kind_of?(Array)
-  %h2 Results
+  %h2= @elements.size == 1 ? 'Result' : 'Results'
   - if @elements.empty?
     %p No matches
   - else
