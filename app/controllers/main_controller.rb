@@ -8,7 +8,9 @@ class MainController < ApplicationController
       @form = MainForm.new(main_params)
       if @form.valid?
         begin
-          @elements = REXML::Document.new(@form.xml).get_elements(@form.xpath)
+          document = REXML::Document.new(@form.xml)
+          current_node = @form.current_node.nil? ? document : document.get_elements(@form.current_node)
+          @elements = REXML::XPath.match(current_node, @form.xpath)
         rescue REXML::ParseException => e
           flash.now[:danger] = "<h4>XML Parse Error</h4>#{safen(e.continued_exception.to_s)}"
         end
@@ -21,7 +23,7 @@ class MainController < ApplicationController
   private
   # Never trust parameters from the scary internet, only allow the white list through.
   def main_params
-    params.require(:main_form).permit(:xpath, :xml)
+    params.require(:main_form).permit(:xpath, :current_node, :xml)
   end
 
   def safen(str)

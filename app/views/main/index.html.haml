@@ -2,6 +2,7 @@
   %div{class: "alert alert-#{type}"}= msg.html_safe
 = form_for @form, url: root_path do |f|
   %p= f.text_field :xpath, id: :xpath, class: 'form-control', placeholder: 'XPath'
+  %p= f.text_field :current_node, id: :current_node, class: 'form-control', placeholder: 'Current Node (Optional)'
   %p= f.text_area :xml, id: :xml, class: 'form-control', placeholder: 'XML', style: 'height: 20em;'
   %p
     = f.submit 'Test', class: 'btn btn-primary'
