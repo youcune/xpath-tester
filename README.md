@@ -1,28 +1,16 @@
-== README
+# XPath Tester
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+probably you know, is a test tool of XPath. You can put XML, XPath and current node if you want.
 
-Things you may want to cover:
+## How to install
 
-* Ruby version
+I believe you have installed Ruby 2.x and bundler!
 
-* System dependencies
+```
+$ git clone https://github.com/youcune/xpath-tester.git
+$ cd xpath-tester
+$ bundle install --path vendor/bundle --without development test
+$ bundle exec rails server -e production
+```
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+or just visit [http://xpath-tester.herokuapp.com/](http://xpath-tester.herokuapp.com/)!
